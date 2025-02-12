@@ -4,7 +4,7 @@
 
 He creado una API sencilla con un solo endpoint para realizar la tarea. Además le he añadido una BD H2 pero guardada en
 un documento, para mantener los datos a la hora del arranque. Además he incluido en resources un data.sql donde
-encontramos el create y los inserts.
+encontramos el create y los inserts. Recordad arrancar el proyecto usando Maven, y que este esta hecho usando Spring.
 
 
 Para el repositorio he usado un JPA con una llamada a la bd. Esta llamada hace el primer filtro para la prueba, aunque
@@ -22,4 +22,14 @@ He ejecutado los tests y me pasan ya los 5.
 
 Además añado una prueba extra que he hecho con el posman, para ver la respuesta directamente del controlador en el
 resources.
+
+Finalmente, por si acaso, con el proyecto arrancado podeis acceder a la bd desde este enlace:
+
+http://localhost:8080/h2-console/login.jsp?jsessionid=0d17a974a416b5741698cd78096e0798
+
+usuario: sa
+
+Pass: password
+
+Muchas gracias por la oportunidad.
 
