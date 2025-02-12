@@ -18,11 +18,11 @@ public class PricesDTO {
     @Column
     private Long id;
     @Column(name="BRAND_ID")
-    private Long Brand;
+    private Long brandId;
     @Column(name="PRICE_LIST")
     private Integer priceList;
     @Column(name="PRODUCT_ID")
-    private Long productID;
+    private Long productId;
     @Column(name="PRIORITY")
     private Integer priority;
     @Column(name="PRICE")
