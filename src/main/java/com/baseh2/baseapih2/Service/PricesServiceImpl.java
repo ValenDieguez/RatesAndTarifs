@@ -18,6 +18,10 @@ public class PricesServiceImpl implements PricesService {
     @Override
     public PricesDTO getOne(LocalDateTime time, Long productId, Long brandId) {
 
-        return null;
+        List<PricesDTO> pricesList = pricesRepository.findByBrandIdAndProductId(brandId, productId);
+        return pricesList.stream()
+                .filter(price -> price.getEndDate().isBefore(time) && price.getStartDate().isAfter(time))
+                .max(Comparator.comparing(PricesDTO::getPriority))
+                .orElse(null);
     }
 }
