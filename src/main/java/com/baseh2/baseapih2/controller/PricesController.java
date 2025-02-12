@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/task")
@@ -20,7 +20,7 @@ public class PricesController {
 
 
     @GetMapping("/getOne/{time}/{productId}/{brandId}")
-    public ResponseEntity<PricesDTO> getOneTry(@PathVariable Timestamp time, @PathVariable Long productId, @PathVariable Long brandId) {
+    public ResponseEntity<PricesDTO> getOneTry(@PathVariable LocalDateTime time, @PathVariable Long productId, @PathVariable Long brandId) {
         return new ResponseEntity<>( pricesService.getOne(time,productId,brandId), HttpStatus.OK);
     }
 

@@ -5,8 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 
-import java.sql.Timestamp;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -31,5 +30,7 @@ public class PricesDTO {
     @Column(name="CURRENCY")
     private String currency;
     @Column(name = "START_DATE")
-    private Timestamp startDate;
+    private LocalDateTime startDate;
+    @Column(name = "END_DATE")
+    private LocalDateTime endDate;
 }
