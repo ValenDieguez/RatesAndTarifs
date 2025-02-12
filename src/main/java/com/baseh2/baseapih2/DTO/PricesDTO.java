@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name="task")
+@Table(name="prices")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PricesDTO {
 
@@ -27,7 +27,7 @@ public class PricesDTO {
     private Integer priority;
     @Column(name="PRICE")
     private Double price;
-    @Column(name="CURRENCY")
+    @Column(name="CURR")
     private String currency;
     @Column(name = "START_DATE")
     private LocalDateTime startDate;

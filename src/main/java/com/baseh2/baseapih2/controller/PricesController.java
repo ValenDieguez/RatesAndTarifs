@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("/task")
+@RequestMapping("/prices")
 @CrossOrigin(origins = "http://localhost:4200")
 public class PricesController {
 
