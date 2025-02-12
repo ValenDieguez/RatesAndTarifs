@@ -5,6 +5,7 @@ import com.baseh2.baseapih2.Repository.PricesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Component
@@ -14,7 +15,7 @@ public class PricesServiceImpl implements PricesService {
     PricesRepository pricesRepository;
 
     @Override
-    public PricesDTO getOne(Integer id) {
-        return pricesRepository.getOne(id);
+    public PricesDTO getOne(Timestamp time, Long productId, Long brandId) {
+        return null;
     }
 }

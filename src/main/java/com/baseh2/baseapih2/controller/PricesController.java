@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+
 @RestController
 @RequestMapping("/task")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -17,9 +19,9 @@ public class PricesController {
 
 
 
-    @GetMapping("/getOne/{id}")
-    public ResponseEntity<PricesDTO> getOneTry(@PathVariable int id) {
-        return new ResponseEntity<>( pricesService.getOne(id), HttpStatus.OK);
+    @GetMapping("/getOne/{time}/{productId}/{brandId}")
+    public ResponseEntity<PricesDTO> getOneTry(@PathVariable Timestamp time, @PathVariable Long productId, @PathVariable Long brandId) {
+        return new ResponseEntity<>( pricesService.getOne(time,productId,brandId), HttpStatus.OK);
     }
 
 }
