@@ -2,7 +2,6 @@ package com.baseh2.baseapih2;
 
 import com.baseh2.baseapih2.DTO.PricesDTO;
 import com.baseh2.baseapih2.Repository.PricesRepository;
-import com.baseh2.baseapih2.Service.PricesService;
 import com.baseh2.baseapih2.Service.PricesServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
