@@ -20,7 +20,7 @@ public class PricesServiceImpl implements PricesService {
 
         List<PricesDTO> pricesList = pricesRepository.findByBrandIdAndProductId(brandId, productId);
         return pricesList.stream()
-                .filter(price -> price.getEndDate().isBefore(time) && price.getStartDate().isAfter(time))
+                .filter(price -> price.getStartDate().isBefore(time) && price.getEndDate().isAfter(time))
                 .max(Comparator.comparing(PricesDTO::getPriority))
                 .orElse(null);
     }
