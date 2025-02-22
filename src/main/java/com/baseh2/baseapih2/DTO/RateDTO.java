@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name="prices")
+@Table(name="T_RATES")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PricesDTO {
+public class RateDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
