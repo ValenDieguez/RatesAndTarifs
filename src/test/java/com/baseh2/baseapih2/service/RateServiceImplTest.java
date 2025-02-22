@@ -1,84 +1,130 @@
-package com.baseh2.baseapih2.service;
+package com.baseh2.baseapih2.Service;
 
 import com.baseh2.baseapih2.DTO.RateDTO;
+import com.baseh2.baseapih2.DTO.CurrencyDTO;
 import com.baseh2.baseapih2.Repository.RateRepository;
-import com.baseh2.baseapih2.Service.RateServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
+import com.baseh2.baseapih2.client.CurrencyServiceClient;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
-class RateServiceImplTest {
+
+@ExtendWith(MockitoExtension.class)
+public class RateServiceImplTest {
 
     @Mock
     private RateRepository rateRepository;
+
+    @Mock
+    private CurrencyServiceClient currencyServiceClient;
 
     @InjectMocks
     private RateServiceImpl rateService;
 
     private RateDTO testRate;
+    private CurrencyDTO testCurrency;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         testRate = new RateDTO();
         testRate.setId(1L);
         testRate.setBrandId(1L);
         testRate.setProductId(35455L);
-        testRate.setPrice(3550);
+        testRate.setPrice(1550);
         testRate.setCurrency("EUR");
-        testRate.setStartDate(LocalDateTime.parse("2022-01-01T00:00:00"));
-        testRate.setEndDate(LocalDateTime.parse("2022-12-31T23:59:59"));
+        testRate.setStartDate(LocalDateTime.of(2024, 1, 1, 0, 0));
+        testRate.setEndDate(LocalDateTime.of(2024, 12, 31, 23, 59));
+
+        testCurrency = new CurrencyDTO();
+        testCurrency.setCode("EUR");
+        testCurrency.setDecimals(2);
     }
-
     @Test
-    void whenValidRequest_thenReturnRate() {
-        // Given
-        LocalDateTime requestDate = LocalDateTime.parse("2022-06-14T10:00:00");
-        when(rateRepository.findByBrandIdAndProductId(1L, 35455L))
-                .thenReturn(Arrays.asList(testRate));
+    public void getOne_WhenValidRequest_ShouldReturnRate() {
+        LocalDateTime requestDate = LocalDateTime.of(2024, 6, 14, 10, 0);
+        when(rateRepository.findCurrentRate(1L, 35455L, requestDate))
+                .thenReturn(Optional.of(testRate));
+        when(currencyServiceClient.getCurrencyInfo("EUR"))
+                .thenReturn(testCurrency);
 
-        // When
         RateDTO result = rateService.getOne(requestDate, 35455L, 1L);
 
-        // Then
         assertNotNull(result);
-        assertEquals(1L, result.getId());
-        assertEquals(3550, result.getPrice());
+        assertEquals(testRate.getId(), result.getId());
+        assertEquals(15.50, result.getFormattedPrice(), 0.001);
+
+        verify(rateRepository).findCurrentRate(1L, 35455L, requestDate);
+        verify(currencyServiceClient).getCurrencyInfo("EUR");
     }
 
     @Test
-    void whenNoRatesFound_thenThrowException() {
-        // Given
-        LocalDateTime requestDate = LocalDateTime.parse("2022-06-14T10:00:00");
-        when(rateRepository.findByBrandIdAndProductId(1L, 35455L))
-                .thenReturn(Collections.emptyList());
+    public void getOne_WhenNoRatesFound_ShouldThrowException() {
+        LocalDateTime requestDate = LocalDateTime.of(2024, 6, 14, 10, 0);
+        when(rateRepository.findCurrentRate(1L, 35455L, requestDate))
+                .thenReturn(Optional.empty());
 
-        // Then
-        assertThrows(NoSuchElementException.class, () -> {
-            rateService.getOne(requestDate, 35455L, 1L);
-        });
+        assertThrows(NoSuchElementException.class, () ->
+            rateService.getOne(requestDate, 35455L, 1L));
     }
-
     @Test
-    void whenDateOutOfRange_thenThrowException() {
-        // Given
-        LocalDateTime requestDate = LocalDateTime.parse("2023-06-14T10:00:00");
-        when(rateRepository.findByBrandIdAndProductId(1L, 35455L))
-                .thenReturn(Arrays.asList(testRate));
+    public void getRateById_WhenRateDoesNotExist_ShouldThrowException() {
+        when(rateRepository.findById(999L)).thenReturn(Optional.empty());
 
-        // Then
-        assertThrows(NoSuchElementException.class, () -> {
-            rateService.getOne(requestDate, 35455L, 1L);
-        });
+        assertThrows(NoSuchElementException.class, () ->
+            rateService.getRateById(999L));
+    }
+    @Test
+    public void createRate_WithInvalidData_ShouldThrowException() {
+        testRate.setStartDate(null);
+
+        assertThrows(IllegalArgumentException.class, () ->
+            rateService.createRate(testRate));
+    }
+    @Test
+    public void updateRatePrice_WhenRateDoesNotExist_ShouldThrowException() {
+        when(rateRepository.findById(999L)).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementException.class, () ->
+            rateService.updateRatePrice(999L, 2000));
+    }
+    @Test
+    public void deleteRate_WhenRateDoesNotExist_ShouldThrowException() {
+        when(rateRepository.existsById(999L)).thenReturn(false);
+
+        assertThrows(NoSuchElementException.class, () ->
+            rateService.deleteRate(999L));
+    }
+    @Test
+    public void validateRate_WithStartDateAfterEndDate_ShouldThrowException() {
+        testRate.setStartDate(LocalDateTime.now().plusDays(2));
+        testRate.setEndDate(LocalDateTime.now());
+
+        assertThrows(IllegalArgumentException.class, () ->
+            rateService.createRate(testRate));
+    }
+    @Test
+    public void validateRate_WithZeroPrice_ShouldThrowException() {
+        testRate.setPrice(0);
+
+        assertThrows(IllegalArgumentException.class, () ->
+            rateService.createRate(testRate));
+    }
+    @Test
+    public void validateRate_WithEmptyCurrency_ShouldThrowException() {
+        testRate.setCurrency("  ");
+
+        assertThrows(IllegalArgumentException.class, () ->
+            rateService.createRate(testRate));
     }
 }

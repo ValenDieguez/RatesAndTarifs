@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    compatibility-verifier:
+      enabled: false
+
+currency-service:
+  url: localhost:8080/api/currency  # Adjust this URL according to your currency service endpoint
