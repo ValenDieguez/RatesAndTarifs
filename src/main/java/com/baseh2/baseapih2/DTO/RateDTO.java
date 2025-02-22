@@ -31,4 +31,6 @@ public class RateDTO {
     private LocalDateTime endDate;
     @Transient  
     private CurrencyDTO currencyInfo;
+    @Transient
+    private Double formattedPrice;
 }
