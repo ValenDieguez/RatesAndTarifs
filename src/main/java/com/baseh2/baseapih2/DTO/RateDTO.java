@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name="T_RATES")
+@Table(name = "T_RATES")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RateDTO {
 
@@ -17,16 +17,18 @@ public class RateDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
-    @Column(name="BRAND_ID")
+    @Column(name = "BRAND_ID")
     private Long brandId;
-    @Column(name="PRICE")
+    @Column(name = "PRICE")
     private Integer price;
-    @Column(name="PRODUCT_ID")
+    @Column(name = "PRODUCT_ID")
     private Long productId;
-    @Column(name="CURRENCY_CODE")
+    @Column(name = "CURRENCY_CODE")
     private String currency;
     @Column(name = "START_DATE")
     private LocalDateTime startDate;
     @Column(name = "END_DATE")
     private LocalDateTime endDate;
+    @Transient  
+    private CurrencyDTO currencyInfo;
 }

@@ -1,0 +1,2 @@
+currency-service:
+  url: http://localhost:9561
