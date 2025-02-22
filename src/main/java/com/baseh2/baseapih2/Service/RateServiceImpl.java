@@ -17,20 +17,14 @@ public class RateServiceImpl implements RateService {
 
     @Override
     public RateDTO getOne(LocalDateTime time, Long productId, Long brandId) {
-
         List<RateDTO> pricesList = pricesRepository.findByBrandIdAndProductId(brandId, productId);
         if (pricesList.isEmpty()) {
             throw new NoSuchElementException("No hay precios para el brand y el producto proporcionado.");
         }
 
-        RateDTO result = pricesList.stream()
+        return pricesList.stream()
                 .filter(price -> price.getStartDate().isBefore(time) && price.getEndDate().isAfter(time))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("No hay precio valido para la fecha dada."));
-        if (result == null) {
-            throw new NoSuchElementException("No hay precio valido para la fecha dada.");
-        }
-
-        return result;
     }
 }
