@@ -1,4 +1,4 @@
-package com.baseh2.baseapih2;
+package com.RatesAndTarifs.ratesandtarifs;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

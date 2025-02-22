@@ -1,9 +1,9 @@
-package com.baseh2.baseapih2.Service;
+package com.RatesAndTarifs.ratesandtarifs.Service;
 
-import com.baseh2.baseapih2.DTO.RateDTO;
-import com.baseh2.baseapih2.DTO.CurrencyDTO;
-import com.baseh2.baseapih2.Repository.RateRepository;
-import com.baseh2.baseapih2.client.CurrencyServiceClient;
+import com.RatesAndTarifs.ratesandtarifs.DTO.CurrencyDTO;
+import com.RatesAndTarifs.ratesandtarifs.DTO.RateDTO;
+import com.RatesAndTarifs.ratesandtarifs.Repository.RateRepository;
+import com.RatesAndTarifs.ratesandtarifs.client.CurrencyServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -48,6 +48,7 @@ public class RateServiceImpl implements RateService {
             throw new IllegalArgumentException("There is already a rate defined for this period");
         }
     }
+
     @Override
     public RateDTO getRateById(Long id) {
         RateDTO rate = rateRepository.findById(id)

@@ -1,9 +1,10 @@
-package com.baseh2.baseapih2.Service;
+package com.RatesAndTarifs.ratesandtarifs.service;
 
-import com.baseh2.baseapih2.DTO.RateDTO;
-import com.baseh2.baseapih2.DTO.CurrencyDTO;
-import com.baseh2.baseapih2.Repository.RateRepository;
-import com.baseh2.baseapih2.client.CurrencyServiceClient;
+import com.RatesAndTarifs.ratesandtarifs.DTO.CurrencyDTO;
+import com.RatesAndTarifs.ratesandtarifs.DTO.RateDTO;
+import com.RatesAndTarifs.ratesandtarifs.Repository.RateRepository;
+import com.RatesAndTarifs.ratesandtarifs.Service.RateServiceImpl;
+import com.RatesAndTarifs.ratesandtarifs.client.CurrencyServiceClient;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -50,6 +51,7 @@ public class RateServiceImplTest {
         testCurrency.setCode("EUR");
         testCurrency.setDecimals(2);
     }
+
     @Test
     public void getOne_WhenValidRequest_ShouldReturnRate() {
         LocalDateTime requestDate = LocalDateTime.of(2024, 6, 14, 10, 0);
@@ -75,56 +77,63 @@ public class RateServiceImplTest {
                 .thenReturn(Optional.empty());
 
         assertThrows(NoSuchElementException.class, () ->
-            rateService.getOne(requestDate, 35455L, 1L));
+                rateService.getOne(requestDate, 35455L, 1L));
     }
+
     @Test
     public void getRateById_WhenRateDoesNotExist_ShouldThrowException() {
         when(rateRepository.findById(999L)).thenReturn(Optional.empty());
 
         assertThrows(NoSuchElementException.class, () ->
-            rateService.getRateById(999L));
+                rateService.getRateById(999L));
     }
+
     @Test
     public void createRate_WithInvalidData_ShouldThrowException() {
         testRate.setStartDate(null);
 
         assertThrows(IllegalArgumentException.class, () ->
-            rateService.createRate(testRate));
+                rateService.createRate(testRate));
     }
+
     @Test
     public void updateRatePrice_WhenRateDoesNotExist_ShouldThrowException() {
         when(rateRepository.findById(999L)).thenReturn(Optional.empty());
 
         assertThrows(NoSuchElementException.class, () ->
-            rateService.updateRatePrice(999L, 2000));
+                rateService.updateRatePrice(999L, 2000));
     }
+
     @Test
     public void deleteRate_WhenRateDoesNotExist_ShouldThrowException() {
         when(rateRepository.existsById(999L)).thenReturn(false);
 
         assertThrows(NoSuchElementException.class, () ->
-            rateService.deleteRate(999L));
+                rateService.deleteRate(999L));
     }
+
     @Test
     public void validateRate_WithStartDateAfterEndDate_ShouldThrowException() {
         testRate.setStartDate(LocalDateTime.now().plusDays(2));
         testRate.setEndDate(LocalDateTime.now());
 
         assertThrows(IllegalArgumentException.class, () ->
-            rateService.createRate(testRate));
+                rateService.createRate(testRate));
     }
+
     @Test
     public void validateRate_WithZeroPrice_ShouldThrowException() {
         testRate.setPrice(0);
 
         assertThrows(IllegalArgumentException.class, () ->
-            rateService.createRate(testRate));
+                rateService.createRate(testRate));
     }
+
     @Test
     public void validateRate_WithEmptyCurrency_ShouldThrowException() {
         testRate.setCurrency("  ");
 
         assertThrows(IllegalArgumentException.class, () ->
-            rateService.createRate(testRate));
+                rateService.createRate(testRate));
     }
 }

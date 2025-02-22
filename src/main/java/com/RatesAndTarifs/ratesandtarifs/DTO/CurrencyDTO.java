@@ -1,4 +1,4 @@
-package com.baseh2.baseapih2.DTO;
+package com.RatesAndTarifs.ratesandtarifs.DTO;
 
 import lombok.Data;
 

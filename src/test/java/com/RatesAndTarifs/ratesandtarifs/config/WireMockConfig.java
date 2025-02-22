@@ -1,4 +1,4 @@
-package com.baseh2.baseapih2.config;
+package com.RatesAndTarifs.ratesandtarifs.config;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.springframework.boot.test.context.TestConfiguration;

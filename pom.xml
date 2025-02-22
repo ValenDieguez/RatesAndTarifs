@@ -101,8 +101,11 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>com.ratesandtarifs</groupId>
+				<artifactId>RatesAndTarifs</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<name>RatesAndTarifs</name>
+				<description>Rate and Tariff Management Service</description>
 			</plugin>
 		</plugins>
 	</build>

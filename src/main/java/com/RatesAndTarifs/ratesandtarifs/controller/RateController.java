@@ -1,7 +1,7 @@
-package com.baseh2.baseapih2.controller;
+package com.RatesAndTarifs.ratesandtarifs.controller;
 
-import com.baseh2.baseapih2.DTO.RateDTO;
-import com.baseh2.baseapih2.Service.RateService;
+import com.RatesAndTarifs.ratesandtarifs.DTO.RateDTO;
+import com.RatesAndTarifs.ratesandtarifs.Service.RateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -18,6 +18,7 @@ public class RateController {
 
     @Autowired
     RateService rateService;
+
     @GetMapping("/{id}")
     public ResponseEntity<RateDTO> getRateById(@PathVariable Long id) {
         return ResponseEntity.ok(rateService.getRateById(id));

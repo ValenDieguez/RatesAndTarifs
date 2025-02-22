@@ -1,4 +1,4 @@
-package com.baseh2.baseapih2.DTO;
+package com.RatesAndTarifs.ratesandtarifs.DTO;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
@@ -29,7 +29,7 @@ public class RateDTO {
     private LocalDateTime startDate;
     @Column(name = "END_DATE")
     private LocalDateTime endDate;
-    @Transient  
+    @Transient
     private CurrencyDTO currencyInfo;
     @Transient
     private Double formattedPrice;

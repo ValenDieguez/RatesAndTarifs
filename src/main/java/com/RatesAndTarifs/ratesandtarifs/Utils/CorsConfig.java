@@ -1,4 +1,4 @@
-package com.baseh2.baseapih2.Utils;
+package com.RatesAndTarifs.ratesandtarifs.Utils;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

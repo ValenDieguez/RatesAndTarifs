@@ -1,0 +1,163 @@
+openapi: 3.0.3
+info:
+  title: Rate Management API
+  description: API for managing product rates with currency support
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /rates/{id}:
+    get:
+      summary: Get rate by ID
+      description: Retrieves a specific rate with formatted price and currency information
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Rate found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateDTO'
+        '404':
+          description: Rate not found
+
+    delete:
+      summary: Delete rate
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Rate successfully deleted
+        '404':
+          description: Rate not found
+
+  /rates/search:
+    get:
+      summary: Search for applicable rate
+      description: Finds rate for specific date, product and brand
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: productId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: brandId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Rate found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateDTO'
+        '404':
+          description: No rate found for given criteria
+
+  /rates:
+    post:
+      summary: Create new rate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RateDTO'
+      responses:
+        '201':
+          description: Rate created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateDTO'
+        '400':
+          description: Invalid input data
+
+  /rates/{id}/price:
+    patch:
+      summary: Update rate price
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: integer
+      responses:
+        '200':
+          description: Price updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateDTO'
+        '404':
+          description: Rate not found
+
+components:
+  schemas:
+    RateDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        brandId:
+          type: integer
+          format: int64
+        productId:
+          type: integer
+          format: int64
+        price:
+          type: integer
+        currency:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        formattedPrice:
+          type: number
+          format: double
+        currencyInfo:
+          $ref: '#/components/schemas/CurrencyDTO'
+
+    CurrencyDTO:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        decimals:
+          type: integer
