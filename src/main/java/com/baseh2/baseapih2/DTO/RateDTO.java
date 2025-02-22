@@ -19,15 +19,11 @@ public class RateDTO {
     private Long id;
     @Column(name="BRAND_ID")
     private Long brandId;
-    @Column(name="PRICE_LIST")
-    private Integer priceList;
+    @Column(name="PRICE")
+    private Integer price;
     @Column(name="PRODUCT_ID")
     private Long productId;
-    @Column(name="PRIORITY")
-    private Integer priority;
-    @Column(name="PRICE")
-    private Double price;
-    @Column(name="CURR")
+    @Column(name="CURRENCY_CODE")
     private String currency;
     @Column(name = "START_DATE")
     private LocalDateTime startDate;
