@@ -3949,3 +3949,14 @@ select pd1_0.id,pd1_0.brand_id,pd1_0.currency,pd1_0.end_date,pd1_0.price,pd1_0.p
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 	at java.base/java.lang.Thread.run(Thread.java:833)
+2025-02-23 19:10:00.573221+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: El objeto ya está cerrado
+The object is already closed [90007-224]
+2025-02-23 19:13:45.203912+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "T_RATES" ya existe
+Table "T_RATES" already exists; SQL statement:
+CREATE TABLE T_RATES ( ID INT AUTO_INCREMENT PRIMARY KEY, BRAND_ID INT, PRODUCT_ID INT, START_DATE TIMESTAMP, END_DATE TIMESTAMP, PRICE INT, CURRENCY_CODE VARCHAR(3) ) [42101-224]
+2025-02-23 19:16:34.700385+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "T_RATES" ya existe
+Table "T_RATES" already exists; SQL statement:
+CREATE TABLE T_RATES ( ID INT AUTO_INCREMENT PRIMARY KEY, BRAND_ID INT, PRODUCT_ID INT, START_DATE TIMESTAMP, END_DATE TIMESTAMP, PRICE INT, CURRENCY_CODE VARCHAR(3) ) [42101-224]
