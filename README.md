@@ -1,6 +1,6 @@
-# Rate Management API
+# Rates and Tariffs Management API
 
-A Spring Boot microservice that manages product rates with dynamic currency support and price formatting. This service provides a comprehensive REST API for handling price rates across different products and brands.
+A Spring Boot microservice that manages product rates and tariffs with dynamic currency support and price formatting. This service provides a comprehensive REST API for handling price rates across different products and brands.
 
 ## Features
 
@@ -15,10 +15,14 @@ A Spring Boot microservice that manages product rates with dynamic currency supp
 ### Technical Features
 - Automatic decimal formatting based on currency specifications
 - Period overlap detection for rate validity
-- Cross-origin support for frontend integration
+- Cross-origin support for frontend integration (Angular)
+- OpenAPI 3.0 documentation
 - Comprehensive error handling
 - Input validation and sanitization
 - RESTful API design
+- Caching for currency service
+- Hexagonal architecture implementation
+- Domain-Driven Design principles
 
 ## Technical Stack
 
@@ -27,24 +31,28 @@ A Spring Boot microservice that manages product rates with dynamic currency supp
 - Spring Boot 3.2.2
 - Spring Cloud OpenFeign
 - H2 Database
+- OpenAPI 3.0
 
 ### Testing & Quality
 - JUnit 5
 - Mockito
 - Integration Tests
 - API Tests
+- Repository Tests
 
 ### Development Tools
 - Maven
 - Lombok
 - Spring DevTools
+- Swagger UI
 
 ## Quick Start
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/BaseApiH2.git
-cd BaseApiH2
+git clone https://github.com/yourusername/RatesAndTarifs.git
+cd RatesAndTarifs
+```
  ```
 2. Build the project:
 ```bash
@@ -102,25 +110,34 @@ mvn test
 # Specific test class
 mvn test -Dtest=RateServiceImplTest
  ```
-
 ## Project Structure
 ```plaintext
 src/
 ├── main/
 │   ├── java/
-│   │   └── com/baseh2/baseapih2/
-│   │       ├── controller/
-│   │       ├── service/
-│   │       ├── repository/
-│   │       ├── dto/
-│   │       └── client/
+│   │   └── com/ratesandtarifs/
+│   │       ├── application/
+│   │       │   ├── ports/
+│   │       │   │   ├── in/
+│   │       │   │   └── out/
+│   │       │   └── service/
+│   │       ├── domain/
+│   │       │   ├── model/
+│   │       │   └── exception/
+│   │       └── infrastructure/
+│   │           ├── adapter/
+│   │           │   ├── persistence/
+│   │           │   └── currency/
+│   │           ├── config/
+│   │           └── rest/
 │   └── resources/
-│       └── application.yml
+│       ├── application.yml
+│       └── openapi/
+│           └── api-docs.yaml
 └── test/
     └── java/
-        └── com/baseh2/baseapih2/
- ```
-
-## License
-This project is licensed under the MIT License
+        └── com/ratesandtarifs/
+            ├── application/
+            ├── domain/
+            └── infrastructure/
 
