@@ -159,8 +159,4 @@ The API implements comprehensive error handling:
 - 404 Not Found - Resource not found
 - 500 Internal Server Error - Server-side errors
 
-### Contact Information
-For any queries regarding the API:
-- Name: Your Name
-- Email: your.email@example.com
 
